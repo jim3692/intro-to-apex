@@ -11,14 +11,14 @@ public class CalculateSumOfOpportunitiesBatch implements Database.Batchable<SObj
         this.query = query;
     }
 
-    public Database.QueryLocator start(Database.BatchableContext BC) {
+    public Database.QueryLocator start(Database.BatchableContext bc) {
         return Database.getQueryLocator(this.query);
     }
 
-    public void execute(Database.BatchableContext BC, List<Account> scope) {
+    public void execute(Database.BatchableContext bc, List<Account> scope) {
         Set<Id> scopeIds = new Map<Id,Account>(scope).keySet();
         OpportunityTriggerHandler.calculateSumOfOpportunities(scopeIds);
     }
 
-    public void finish(Database.BatchableContext BC) { }
+    public void finish(Database.BatchableContext bc) { }
 }
