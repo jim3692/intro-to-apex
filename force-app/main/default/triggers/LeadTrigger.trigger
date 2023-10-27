@@ -8,7 +8,7 @@ trigger LeadTrigger on Lead (before insert) {
 
     for (Lead l : Trigger.new) {
         if (l.Status != targetStatus && affectedProfiles.contains(userProfile.Name)) {
-        l.addError(message);
-    }
+            l.addError(message);
+        }
     }
 }
