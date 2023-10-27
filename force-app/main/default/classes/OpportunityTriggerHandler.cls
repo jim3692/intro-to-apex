@@ -1,7 +1,14 @@
 public with sharing class OpportunityTriggerHandler {
+    @TestVisible
+    private static Boolean skipCalculateSumOfOpportunities = false;
+
     public static final String[] IGNORED_STAGES = new String[] { 'Closed Lost' };
 
     public static void calculateSumOfOpportunities(Set<Id> accountIds) {
+        if (skipCalculateSumOfOpportunities) {
+            return;
+        }
+
         List<Account> accountsWithOpportunities = [
             SELECT
                 Id, (SELECT Id, Amount FROM Opportunities WHERE StageName NOT IN :IGNORED_STAGES)
